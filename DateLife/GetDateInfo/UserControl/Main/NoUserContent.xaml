@@ -1,0 +1,25 @@
+﻿<Grid x:Class="GetDateInfo.UserControl.Main.NoUserContent"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Height="29"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal">
+        <Button Margin="4,0,0,0" Width="28" Height="29" Style="{StaticResource ButtonCustom}">
+            <hc:Interaction.Triggers>
+                <hc:EventTrigger EventName="Click">
+                    <hc:InvokeCommandAction Command="{x:Static shell:SystemCommands.ShowSystemMenuCommand}" />
+                </hc:EventTrigger>
+                <hc:EventTrigger EventName="MouseDoubleClick">
+                    <hc:InvokeCommandAction Command="{x:Static shell:SystemCommands.CloseWindowCommand}" />
+                </hc:EventTrigger>
+            </hc:Interaction.Triggers>
+            <Path Height="16" Fill="White" Stretch="Uniform" Data="{StaticResource LogoGeometry}"/>
+        </Button>
+        <Label HorizontalAlignment="Left" Margin="0" Content="获取机器码"  Style="{StaticResource LabelPrimary}" Background="{x:Null}"/>
+    </StackPanel>
+</Grid>

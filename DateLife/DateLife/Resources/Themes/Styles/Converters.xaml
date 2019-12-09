@@ -1,0 +1,6 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DateLife.Resources.Themes.Styles"
+                    xmlns:converter="clr-namespace:DateLife.Tools.Converter">
+    <converter:StrToDateConverter x:Key="StrToDateConverter"/>
+</ResourceDictionary>

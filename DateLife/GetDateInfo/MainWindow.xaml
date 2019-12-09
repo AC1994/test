@@ -1,0 +1,43 @@
+﻿<hc:BlurWindow x:Class="GetDateInfo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:userControl="clr-namespace:GetDateInfo.UserControl.Main"   
+        xmlns:local="clr-namespace:GetDateInfo"
+        mc:Ignorable="d"
+        Style="{StaticResource WindowBlur}"
+               
+         BorderThickness="1"
+               BorderBrush="#262e2f"
+               NonClientAreaBackground="#262e2f"
+               OtherButtonHoverBackground="#888580"
+               CloseButtonForeground="White"
+               OtherButtonHoverForeground="White"
+               OtherButtonForeground="White"
+               
+               
+        DataContext="{Binding Main,Source={StaticResource Locator}}"
+        Closing="BlurWindow_Closing"
+        Title="MainWindow" Height="200" Width="800" >
+    <hc:Window.NonClientAreaContent>
+        <userControl:NoUserContent/>
+    </hc:Window.NonClientAreaContent>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+
+            <RowDefinition Height="*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox HorizontalAlignment="Left" Height="23"   TextWrapping="Wrap" Text="{Binding Path}"  Width="500"/>
+            <Button  Content="获取机器码" Style="{StaticResource ButtonSuccess}" Command="{Binding GetInfoCmd}"/>
+        </StackPanel>
+    </Grid>
+</hc:BlurWindow>

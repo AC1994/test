@@ -1,0 +1,78 @@
+﻿<hc:BlurWindow x:Class="DateLife.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:userControl="clr-namespace:DateLife.UserControl.Main"   
+        xmlns:local="clr-namespace:DateLife"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Style="{StaticResource WindowBlur}"
+               
+         BorderThickness="1"
+               BorderBrush="#262e2f"
+               NonClientAreaBackground="#262e2f"
+               OtherButtonHoverBackground="#888580"
+               CloseButtonForeground="White"
+               OtherButtonHoverForeground="White"
+               OtherButtonForeground="White"
+               
+               
+        DataContext="{Binding Main,Source={StaticResource Locator}}"
+        Closing="BlurWindow_Closing"
+        Title="MainWindow" Height="auto" Width="800" >
+    <hc:Window.NonClientAreaContent>
+        <userControl:NoUserContent/>
+    </hc:Window.NonClientAreaContent>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+
+            <RowDefinition Height="*" MaxHeight="400" MinHeight="200"></RowDefinition>
+
+            <RowDefinition Height="300"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="50,15,0,0" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" DataContext="{Binding EditInfo}">
+                <hc:TextBox Width="380" hc:InfoElement.TitleWidth="80" hc:InfoElement.TitleAlignment="Left" hc:InfoElement.Title="用户" Margin="0,0,0,0" Text="{Binding Name}"/>
+                <hc:NumericUpDown Width="380" Value="{Binding CurrentRegister.DayCount}" hc:InfoElement.TitleWidth="80" hc:InfoElement.TitleAlignment="Left" hc:InfoElement.Title="天数" Style="{StaticResource NumericUpDownPlus}" Margin="0,10,0,0"/>
+                <hc:DatePicker ShowClearButton="True" IsEnabled="False" SelectedDate="{Binding CurrentRegister.StartDate,Converter={StaticResource StrToDateConverter}}" Width="380" hc:InfoElement.TitleWidth="80" hc:InfoElement.TitleAlignment="Left" hc:InfoElement.Title="注册日期" Margin="0,10,0,0"/>
+                <hc:DatePicker ShowClearButton="True" IsEnabled="False" SelectedDate="{Binding CurrentRegister.EndDate,Converter={StaticResource StrToDateConverter}}" Width="380" hc:InfoElement.TitleWidth="80" hc:InfoElement.TitleAlignment="Left" hc:InfoElement.Title="到期日期" Margin="0,10,0,0"/>
+
+                <hc:TextBox Width="380" IsEnabled="False" hc:InfoElement.TitleWidth="80" hc:InfoElement.TitleAlignment="Left" hc:InfoElement.Title="机器码" Margin="0,10,0,10" Text="{Binding Code}"/>
+
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >
+                <Button Margin="30,8,0,8" Style="{StaticResource ButtonDanger}" FontSize="25" Content="选择(lz)..." Height="50" Width="120" Command="{Binding ChooseCmd}"  HorizontalAlignment="Left"  VerticalAlignment="Top" Background="#FF228EA6" />
+                <Button Margin="30,10,20,8" Style="{StaticResource ButtonSuccess}" FontSize="25" Content="生成" Height="70" Width="120" Command="{Binding CreateCmd}"  HorizontalAlignment="Left"  VerticalAlignment="Top" />
+
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <DataGrid  x:Name="Dg" HeadersVisibility="All" RowHeaderWidth="60" SelectedItem="{Binding SelectItem}" AutoGenerateColumns="False" ItemsSource="{Binding CustomerInfos}" hc:DataGridAttach.ShowRowNumber="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="用户"/>
+                    <DataGridTextColumn  Binding="{Binding CurrentRegister.DayCount}" Header="天数"/>
+                    <DataGridTextColumn  Binding="{Binding CurrentRegister.StartDate,StringFormat={}{0:yyyy-MM-dd}}" Header="注册日期"/>
+                    <DataGridTextColumn  Binding="{Binding CurrentRegister.EndDate,StringFormat={}{0:yyyy-MM-dd}}" Header="到期日期"/>
+                    <DataGridTextColumn  Binding="{Binding Code}" Header="机器码"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.Row="2" DataContext="{Binding SelectItem}">
+            <Border Background="#FF518551" Height="2"></Border>
+            <DataGrid x:Name="g2" HeadersVisibility="All" RowHeaderWidth="60"  ItemsSource="{Binding Registers}" hc:DataGridAttach.ShowRowNumber="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="1*" Binding="{Binding DayCount}" Header="天数"/>
+                    <DataGridTextColumn Width="1*" Binding="{Binding StartDate,StringFormat={}{0:yyyy-MM-dd}}" Header="注册日期"/>
+                    <DataGridTextColumn Width="1*" Binding="{Binding EndDate,StringFormat={}{0:yyyy-MM-dd}}" Header="到期日期"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</hc:BlurWindow>
